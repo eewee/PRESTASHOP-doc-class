@@ -30,6 +30,8 @@ if (!defined('_PS_VERSION_')) {
 
 class EeweeDoc extends Module
 {
+    private $id_product = 59;
+
     public function __construct()
     {
         $this->name = 'eeweeDoc';
@@ -76,7 +78,13 @@ class EeweeDoc extends Module
         //$this->eeweeProductAdd();
 
         // UPDATE PRODUCT
-        $this->eeweeProductUpdate();
+        //$this->eeweeProductUpdate();
+
+        // ADD CATEGORY
+        //$this->eeweeProductAddCateg();
+
+        // UPDATE CATEGORY
+        $this->eeweeProductUpdateCateg();
 
         //----------------------------------------------------
         // CLASS XXX
@@ -270,6 +278,28 @@ class EeweeDoc extends Module
         // UPDATE
         $p->update();
     }
+
+    /**
+     * Add categorie
+     */
+    private function eeweeProductAddCateg()
+    {
+        $p = new Product( $this->id_product );
+        $p->addToCategories(array(2, 3, 4));
+    }
+
+    /**
+     * Update categorie
+     */
+    private function eeweeProductUpdateCateg()
+    {
+        $p = new Product( $this->id_product );
+        $p->updateCategories(array(2, 3));
+    }
+
+
+
+
 
     /**
      * Get all languages
