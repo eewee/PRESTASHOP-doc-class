@@ -69,8 +69,14 @@ class EeweeDoc extends Module
         // CLASS PRODUCT
         //----------------------------------------------------
 
+        // ADD/UPDATE PRODUCT
+        //$this->eeweeProductAddOrUpdate();
+
         // ADD PRODUCT
-        $this->eeweeAddProduct();
+        //$this->eeweeProductAdd();
+
+        // UPDATE PRODUCT
+        $this->eeweeProductUpdate();
 
         //----------------------------------------------------
         // CLASS XXX
@@ -82,7 +88,10 @@ class EeweeDoc extends Module
         return $output;
     }
 
-    private function eeweeAddProduct()
+    /**
+     * Add or update product
+     */
+    private function eeweeProductAddOrUpdate()
     {
         $langs = $this->getLang();
 
@@ -202,6 +211,64 @@ class EeweeDoc extends Module
             //$p->pack_stock_type = '';
 
         $p->save();
+    }
+
+    /**
+     * Add product
+     */
+    private function eeweeProductAdd()
+    {
+        $p = new Product();
+
+        // LANG
+        $langs = $this->getLang();
+        foreach ($langs as $lang) {
+            // INFORMATIONS
+            $p->name[$lang['id_lang']] = 'Nom du produit';
+            // REFERENCEMENT - SEO
+            $p->link_rewrite[$lang['id_lang']] = 'nom-du-produit';
+        }
+
+        // INFORMATIONS
+        $p->reference = '5512';             // Reference
+        $p->active = true;                  // Active
+        $p->description_short = 'Resume du produit.';       // Resume
+        $p->description = 'Description longue du produit.'; // Description
+
+        // PRIX
+        $p->price = 20;                     // Prix de vente HT
+
+        // INSERT
+        $p->add();
+    }
+
+    /**
+     * Update product
+     */
+    private function eeweeProductUpdate()
+    {
+        $p = new Product(59);
+
+        // LANG
+        $langs = $this->getLang();
+        foreach ($langs as $lang) {
+            // INFORMATIONS
+            $p->name[$lang['id_lang']] = 'Nom du produit';
+            // REFERENCEMENT - SEO
+            $p->link_rewrite[$lang['id_lang']] = 'nom-du-produit';
+        }
+
+        // INFORMATIONS
+        $p->reference = '5510';             // Reference
+        $p->active = false;                 // Active
+        $p->description_short = 'Resume du produit.';       // Resume
+        $p->description = 'Description longue du produit.'; // Description
+
+        // PRIX
+        $p->price = 18;                     // Prix de vente HT
+
+        // UPDATE
+        $p->update();
     }
 
     /**
